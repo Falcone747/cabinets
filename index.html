@@ -1,0 +1,1001 @@
+<script>
+    const DEMOS = [
+      {
+        webp: "assets/demos/demo_tva_01.webp",
+        jpg: "assets/demos/demo_tva_01.jpg",
+        title: "TVA-01 — Préparation CA3 mensuelle Octobre 2026 (DOS-01)",
+        desc: "TVA collectée 10 500,00 € · TVA déductible 7 970,00 € · Solde à payer 2 530,00 € · Autoliquidation UE symétrique et livraisons exonérées vérifiées (7/7 contrôles).",
+        badge: "DECL-PROP-001",
+        alt: "Capture de la console EXIOR — déclaration CA3 d'octobre 2026, dossier de démonstration"
+      },
+      {
+        webp: "assets/demos/demo_rap_01.webp",
+        jpg: "assets/demos/demo_rap_01.jpg",
+        title: "RAP-01 — Rapprochement relevé 60 lignes vs journal 512 (DOS-01)",
+        desc: "54 lignes lettrées automatiquement · Écart brut 2 160,80 € démontré · Virement inconnu X991 (+1 250 €), doublon Telecom (−240 €) et écart Rive Gauche (50 €) isolés.",
+        badge: "RAP-512-OCT26",
+        alt: "Capture de la console EXIOR — rapprochement bancaire de 60 lignes, dossier de démonstration"
+      },
+      {
+        webp: "assets/demos/demo_sai_02.webp",
+        jpg: "assets/demos/demo_sai_02.jpg",
+        title: "SAI-02 — Facture UE autoliquidée Meta Ireland (DOS-02)",
+        desc: "Facture IE-META-2026-771 de 800,00 € HT · Autoliquidation art. 283-2 CGI à 20 % (160,00 €) · Écriture équilibrée 6231 / 445662 / 401META / 445200 à 960,00 €.",
+        badge: "EC-PROP-001",
+        alt: "Capture de la console EXIOR — saisie d'une facture UE autoliquidée, dossier de démonstration"
+      },
+      {
+        webp: "assets/demos/demo_let_02.webp",
+        jpg: "assets/demos/demo_let_02.jpg",
+        title: "LET-02 — Lettrage 401 fournisseurs & double règlement (DOS-02)",
+        desc: "ALPHA IT soldé (avoir 600 € + virement 3 000 €) · Double paiement TELECOM (240 €) bloqué et reclassé en OD 409100/401011 · Reste dû CABINET JUR 1 200 €.",
+        badge: "EC-PROP-001",
+        alt: "Capture de la console EXIOR — lettrage fournisseurs et double règlement, dossier de démonstration"
+      },
+      {
+        webp: "assets/demos/demo_lia_01.webp",
+        jpg: "assets/demos/demo_lia_01.jpg",
+        title: "LIA-01 — Passage résultat fiscal & calcul IS 15 % / 25 % (DOS-02)",
+        desc: "Résultat comptable 64 200 € + réintégrations 2 800 € − déficit 5 000 € = 62 000 € · IS 15 % (6 375 €) + 25 % (4 875 €) = 11 250 € · Solde à payer 3 050 €.",
+        badge: "DECL-PROP-001",
+        alt: "Capture de la console EXIOR — calcul de l'impôt sur les sociétés, dossier de démonstration"
+      },
+      {
+        webp: "assets/demos/demo_aud_02.webp",
+        jpg: "assets/demos/demo_aud_02.jpg",
+        title: "AUD-02 — Revue confidentielle LCB-FT réservée à l'Expert-Comptable (DOS-03)",
+        desc: "Dépôt espèces 9 800 € sans tickets Z et virement 24 500 € sans justificatif isolés en alerte confidentielle ESC-001 · Zéro écriture générée · Règle anti-divulgation respectée.",
+        badge: "ESC-001",
+        alt: "Capture de la console EXIOR — revue confidentielle LCB-FT, dossier de démonstration"
+      }
+    ];
+
+    function selectDemo(idx) {
+      const d = DEMOS[idx];
+      if (!d) return;
+      const img = document.getElementById("stageImg");
+      const source = document.getElementById("stageSource");
+      source.srcset = d.webp;
+      img.src = d.jpg;
+      img.alt = d.alt;
+      document.getElementById("stageTitle").textContent = d.title;
+      document.getElementById("stageDesc").textContent = d.desc;
+      document.getElementById("stageBadge").textContent = d.badge;
+
+      document.querySelectorAll(".demo-tab").forEach((el, i) => {
+        el.classList.toggle("active", i === idx);
+        el.setAttribute("aria-selected", i === idx ? "true" : "false");
+      });
+      document.querySelectorAll(".thumb-card").forEach((el, i) => el.classList.toggle("active", i === idx));
+    }
+
+    document.querySelectorAll(".demo-tab, .thumb-card").forEach(el => {
+      el.addEventListener("click", () => {
+        const idx = parseInt(el.getAttribute("data-demo"), 10);
+        selectDemo(idx);
+      });
+    });
+    document.querySelectorAll(".thumb-card").forEach(el => {
+      el.setAttribute("tabindex", "0");
+      el.setAttribute("role", "button");
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          selectDemo(parseInt(el.getAttribute("data-demo"), 10));
+        }
+      });
+    });
+
+    const navLinks = document.getElementById("navLinks");
+    const navToggle = document.getElementById("navToggle");
+    function setMenu(open) {
+      navLinks.classList.toggle("open", open);
+      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      navToggle.setAttribute("aria-label", open ? "Fermer le menu" : "Ouvrir le menu");
+    }
+    navToggle.addEventListener("click", () => setMenu(!navLinks.classList.contains("open")));
+    navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setMenu(false)));
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
+  </script><!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>EXIOR pour cabinets comptables — 86 % de votre production exécutée</title>
+  <meta name="description" content="EXIOR automatise 86 % de la production d'un collaborateur comptable : agents spécialisés, moteur de calcul déterministe, réviseur, et validation en un clic de l'expert-comptable.">
+  <meta name="theme-color" content="#0B0B0C">
+  <meta name="robots" content="index,follow">
+  <meta name="author" content="EXIOR">
+  <link rel="canonical" href="https://falcone747.github.io/cabinets/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="assets/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="assets/apple-touch.png">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:site_name" content="EXIOR">
+  <meta property="og:title" content="EXIOR pour cabinets comptables — 86 % de votre production exécutée">
+  <meta property="og:description" content="Agents spécialisés, moteur de calcul déterministe et validation en un clic de l'expert-comptable. Sans recruter, sans changer de logiciel.">
+  <meta property="og:url" content="https://falcone747.github.io/cabinets/">
+  <meta property="og:image" content="https://falcone747.github.io/cabinets/assets/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="EXIOR — 86 % de votre production comptable exécutée. Sans recruter.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="EXIOR pour cabinets comptables — 86 % de votre production exécutée">
+  <meta name="twitter:description" content="Agents spécialisés, moteur de calcul déterministe et validation en un clic de l'expert-comptable.">
+  <meta name="twitter:image" content="https://falcone747.github.io/cabinets/assets/og.jpg">
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/Inter-700.woff2" crossorigin>
+  <link rel="preload" as="font" type="font/woff2" href="assets/fonts/Inter-400.woff2" crossorigin>
+  <link rel="preload" as="image" type="image/webp" href="assets/demos/demo_tva_01.webp">
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "EXIOR",
+    "description": "Agents spécialisés pour la production comptable des cabinets. 86 % du temps de production pris en charge, validation en un clic par l'expert-comptable.",
+    "url": "https://falcone747.github.io/cabinets/",
+    "email": "exior.tech@gmail.com",
+    "founder": { "@type": "Person", "name": "Guillaume Bauchart" },
+    "areaServed": "FR",
+    "image": "https://falcone747.github.io/cabinets/assets/og.jpg"
+  }
+  </script>
+</head>
+<body id="top">
+
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <!-- NAVBAR -->
+  <header class="nav-wrap">
+    <div class="container nav">
+      <a href="#top" class="brand" aria-label="EXIOR — accueil">
+        <svg viewBox="0 0 64 64" fill="none" aria-hidden="true">
+          <path d="M32 6A26 26 0 0 1 57.5 27H44.5A13 13 0 0 0 19.5 27H6.5A26 26 0 0 1 32 6Z" fill="#0B0B0C"/>
+          <path d="M32 58A26 26 0 0 1 6.5 37H19.5A13 13 0 0 0 44.5 37H57.5A26 26 0 0 1 32 58Z" fill="#0B0B0C"/>
+          <circle cx="32" cy="32" r="10.5" fill="#0B0B0C"/>
+        </svg>
+
+        <span>EXIOR</span>
+        <span class="brand-tag">Cabinets comptables</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks" aria-label="Sections de la page">
+        <a href="#architecture">Architecture</a>
+        <a href="#demos">Démos</a>
+        <a href="#preuve">Preuve chiffrée</a>
+        <a href="#tarifs">Tarifs</a>
+        <a href="#conformite">Conformité</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a class="btn btn-primary nav-cta" href="mailto:exior.tech@gmail.com?subject=Test%20EXIOR%20One%20(190%20%E2%82%AC%20HT)%20%E2%80%94%20Cabinet%20comptable&body=Bonjour%20Guillaume%2C%0A%0ANous%20souhaitons%20tester%20EXIOR%20One%20(190%20%E2%82%AC%20HT)%20sur%20un%20de%20nos%20dossiers.%0A%0ACabinet%20%3A%20%0ALogiciel%20comptable%20%3A%20%0ANombre%20de%20postes%20%3A%20">
+          Tester sur un dossier — 190 €
+        </a>
+        <button class="nav-toggle" type="button" id="navToggle" aria-label="Ouvrir le menu" aria-controls="navLinks" aria-expanded="false">Menu</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 1. HERO -->
+  <main id="contenu">
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="eyebrow">EXIOR pour cabinets comptables · Fondé par Guillaume Bauchart, DSCG</div>
+        <h1>86 % de votre production comptable exécutée. Sans recruter.</h1>
+        <p class="hero-lead">
+          Collecte, saisie PCG, lettrage, rapprochement bancaire, TVA, révision, paie/DSN, liasse et FEC : les agents spécialisés EXIOR produisent et vérifient chaque dossier avec un moteur de calcul déterministe. Vos collaborateurs ne gardent que la relation client, et l'expert-comptable valide en un clic.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="mailto:exior.tech@gmail.com?subject=Test%20EXIOR%20One%20(190%20%E2%82%AC%20HT)%20%E2%80%94%20Cabinet%20comptable&body=Bonjour%20Guillaume%2C%0A%0ANous%20souhaitons%20tester%20EXIOR%20One%20(190%20%E2%82%AC%20HT)%20sur%20un%20de%20nos%20dossiers.%0A%0ACabinet%20%3A%20%0ALogiciel%20comptable%20%3A%20%0ANombre%20de%20postes%20%3A%20">
+            Tester sur un de vos dossiers — 190 €
+          </a>
+          <a class="btn btn-outline" href="#demos">Voir les captures d'agents</a>
+        </div>
+        <p class="hero-subnote">
+          Livraison en 48 h sur un dossier réel de votre cabinet · Sans changer de logiciel comptable · Hébergement UE.
+        </p>
+      </div>
+
+      <div class="hero-metrics">
+        <div class="metric-card dark">
+          <div class="metric-val">86 %</div>
+          <div class="metric-lbl">du temps de production pris en charge (121 h sur 140 h mensuelles par portefeuille)</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">35 / 35</div>
+          <div class="metric-lbl">cas réels réussis sur 17 missions après passage par le moteur de calcul et le réviseur</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">19 h</div>
+          <div class="metric-lbl">de temps humain restant par portefeuille : 16 h relation client + 3 h validation EC en 1 clic</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">0</div>
+          <div class="metric-lbl">calcul arithmétique laissé au modèle de langage : 100 % des chiffres passent par du code déterministe</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. LE PROBLEME -->
+  <section id="probleme">
+    <div class="container">
+      <div class="sec-head">
+        <div class="eyebrow">Le constat en cabinet</div>
+        <h2>Ce n'est pas le conseil qui bloque votre croissance. C'est la production qui l'absorbe.</h2>
+        <p>
+          Dans un portefeuille classique de 50 TPE/PME, près de 121 heures par mois partent en collecte, saisie, lettrage, rapprochements, déclarations et contrôles. Chaque tension RH frappe directement la capacité du cabinet.
+        </p>
+      </div>
+
+      <div class="cards-3">
+        <article class="card">
+          <div class="card-num">01 · PÉNURIE</div>
+          <h3>Recrutement bloqué et coût chargé élevé</h3>
+          <p>
+            Un collaborateur confirmé coûte environ <strong>4 560 € chargés par mois</strong> (3 375 € pour un assistant), avec des mois de recherche, une période d'essai incertaine et une montée en charge lente sur vos dossiers.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-num">02 · TURNOVER</div>
+          <h3>Des profils qualifiés usés par la saisie</h3>
+          <p>
+            Vos meilleurs éléments quittent des postes saturés par la relance de pièces manquantes, la saisie des factures et le lettrage. Chaque départ désorganise immédiatement un portefeuille complet.
+          </p>
+        </article>
+
+        <article class="card">
+          <div class="card-num">03 · SAISONNALITÉ</div>
+          <h3>Pics TVA et période fiscale sous tension</h3>
+          <p>
+            Entre les CA3 mensuelles, la révision des comptes, la paie/DSN et les liasses 2033/2050, l'engorgement comprime le temps de contrôle et réduit le temps disponible pour conseiller vos dirigeants.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. ARCHITECTURE -->
+  <section id="architecture" class="alt-sec">
+    <div class="container">
+      <div class="sec-head">
+        <div class="eyebrow">Architecture technique</div>
+        <h2>Neuf agents spécialisés, un moteur de calcul déterministe et une validation en un clic.</h2>
+        <p>
+          Contrairement à un assistant conversationnel isolé, EXIOR sépare l'orchestration métier, l'exécution arithmétique déterministe et la revue croisée, sur une base strictement cloisonnée par cabinet.
+        </p>
+      </div>
+
+      <div class="arch-frame">
+        <svg class="arch-svg" viewBox="0 0 1100 690" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Schéma d'architecture EXIOR pour cabinets comptables">
+          <defs>
+            <marker id="arrowDark" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#0B0B0C"/>
+            </marker>
+            <marker id="arrowMute" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+              <path d="M 0 1 L 10 5 L 0 9 z" fill="#646870"/>
+            </marker>
+          </defs>
+
+          <!-- Background Frame -->
+          <rect x="1" y="1" width="1098" height="688" rx="12" fill="#FAFAFB" stroke="#E2E4E8"/>
+
+          <!-- LAYER 1: SOURCES -->
+          <text x="32" y="34" font-size="11" font-weight="700" letter-spacing="1.6" fill="#646870">1 · FLUX &amp; CONNECTEURS CABINET</text>
+          <g>
+            <rect x="32" y="48" width="242" height="50" rx="8" fill="#FFFFFF" stroke="#D1D5DB"/>
+            <text x="153" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="#0B0B0C">GED &amp; Pièces PDF</text>
+            <text x="153" y="87" text-anchor="middle" font-size="11" fill="#646870">Factures, notes de frais, devis</text>
+
+            <rect x="294" y="48" width="242" height="50" rx="8" fill="#FFFFFF" stroke="#D1D5DB"/>
+            <text x="415" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="#0B0B0C">Banques &amp; Relevés</text>
+            <text x="415" y="87" text-anchor="middle" font-size="11" fill="#646870">Flux 512, tickets Z, prélèvements</text>
+
+            <rect x="556" y="48" width="242" height="50" rx="8" fill="#FFFFFF" stroke="#D1D5DB"/>
+            <text x="677" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="#0B0B0C">Logiciel Comptable / FEC</text>
+            <text x="677" y="87" text-anchor="middle" font-size="11" fill="#646870">Journaux, balances, grand livre</text>
+
+            <rect x="818" y="48" width="250" height="50" rx="8" fill="#FFFFFF" stroke="#D1D5DB"/>
+            <text x="943" y="70" text-anchor="middle" font-size="13" font-weight="700" fill="#0B0B0C">Paie &amp; Dossiers Clients</text>
+            <text x="943" y="87" text-anchor="middle" font-size="11" fill="#646870">Bulletins, DSN, fiches fiscales</text>
+          </g>
+
+          <!-- Arrows Layer 1 -> 2 -->
+          <line x1="153" y1="98" x2="380" y2="132" stroke="#646870" stroke-width="1.4" marker-end="url(#arrowMute)"/>
+          <line x1="415" y1="98" x2="480" y2="132" stroke="#646870" stroke-width="1.4" marker-end="url(#arrowMute)"/>
+          <line x1="677" y1="98" x2="620" y2="132" stroke="#646870" stroke-width="1.4" marker-end="url(#arrowMute)"/>
+          <line x1="943" y1="98" x2="720" y2="132" stroke="#646870" stroke-width="1.4" marker-end="url(#arrowMute)"/>
+
+          <!-- LAYER 2: ORCHESTRATOR -->
+          <rect x="190" y="136" width="720" height="58" rx="10" fill="#0B0B0C"/>
+          <text x="550" y="161" text-anchor="middle" font-size="15" font-weight="700" fill="#FFFFFF">ORCHESTRATEUR EXIOR</text>
+          <text x="550" y="180" text-anchor="middle" font-size="12" fill="#B8BCC6">Qualification des tâches · Routage par mission · Contexte cloisonné par cabinet et par dossier</text>
+
+          <!-- Arrow Layer 2 -> 3 -->
+          <line x1="550" y1="194" x2="550" y2="226" stroke="#0B0B0C" stroke-width="1.8" marker-end="url(#arrowDark)"/>
+
+          <!-- LAYER 3: 9 SPECIALIZED AGENTS -->
+          <rect x="32" y="232" width="1036" height="176" rx="12" fill="#FFFFFF" stroke="#D1D5DB"/>
+          <text x="50" y="254" font-size="11" font-weight="700" letter-spacing="1.6" fill="#0B0B0C">2 · AGENTS SPÉCIALISÉS DE PRODUCTION (17 MISSIONS COUVERTES)</text>
+
+          <!-- Row 1 (5 agents) -->
+          <g>
+            <rect x="50" y="268" width="188" height="54" rx="7" fill="#F5F6F7" stroke="#D6D9DF"/>
+            <text x="144" y="291" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0B0B0C">Collecte &amp; tri</text>
+            <text x="144" y="309" text-anchor="middle" font-size="11" fill="#5E626B">Doublons, mentions légales</text>
+
+            <rect x="252" y="268" width="188" height="54" rx="7" fill="#F5F6F7" stroke="#D6D9DF"/>
+            <text x="346" y="291" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0B0B0C">Saisie PCG</text>
+            <text x="346" y="309" text-anchor="middle" font-size="11" fill="#5E626B">Achats, ventes, UE, NDF/IK</text>
+
+            <rect x="454" y="268" width="188" height="54" rx="7" fill="#F5F6F7" stroke="#D6D9DF"/>
+            <text x="548" y="291" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0B0B0C">Lettrage &amp; banque</text>
+            <text x="548" y="309" text-anchor="middle" font-size="11" fill="#5E626B">401/411, rapprochement 512</text>
+
+            <rect x="656" y="268" width="188" height="54" rx="7" fill="#F5F6F7" stroke="#D6D9DF"/>
+            <text x="750" y="291" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0B0B0C">TVA &amp; déclarations</text>
+            <text x="750" y="309" text-anchor="middle" font-size="11" fill="#5E626B">CA3, CA12, DAS2, CFE, CVAE</text>
+
+            <rect x="858" y="268" width="192" height="54" rx="7" fill="#F5F6F7" stroke="#D6D9DF"/>
+            <text x="954" y="291" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0B0B0C">Révision &amp; clôture</text>
+            <text x="954" y="309" text-anchor="middle" font-size="11" fill="#5E626B">Immos, inventaire, N/N-1</text>
+          </g>
+
+          <!-- Row 2 (4 agents) -->
+          <g>
+            <rect x="102" y="336" width="218" height="54" rx="7" fill="#F5F6F7" stroke="#D6D9DF"/>
+            <text x="211" y="359" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0B0B0C">Paie &amp; DSN</text>
+            <text x="211" y="377" text-anchor="middle" font-size="11" fill="#5E626B">Contrôle bulletins &amp; cadrage 437</text>
+
+            <rect x="336" y="336" width="218" height="54" rx="7" fill="#F5F6F7" stroke="#D6D9DF"/>
+            <text x="445" y="359" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0B0B0C">Liasse &amp; plaquette</text>
+            <text x="445" y="377" text-anchor="middle" font-size="11" fill="#5E626B">IS, 2033/2050, SIG &amp; annexe</text>
+
+            <rect x="570" y="336" width="218" height="54" rx="7" fill="#F5F6F7" stroke="#D6D9DF"/>
+            <text x="679" y="359" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0B0B0C">Relances clients</text>
+            <text x="679" y="377" text-anchor="middle" font-size="11" fill="#5E626B">Pièces manquantes J-5, impayés</text>
+
+            <rect x="804" y="336" width="218" height="54" rx="7" fill="#F5F6F7" stroke="#D6D9DF"/>
+            <text x="913" y="359" text-anchor="middle" font-size="12.5" font-weight="700" fill="#0B0B0C">Conformité FEC &amp; LCB-FT</text>
+            <text x="913" y="377" text-anchor="middle" font-size="11" fill="#5E626B">Séquence FEC, signaux atypiques</text>
+          </g>
+
+          <!-- Arrows Layer 3 -> 4 -->
+          <line x1="360" y1="408" x2="360" y2="440" stroke="#0B0B0C" stroke-width="1.8" marker-end="url(#arrowDark)"/>
+          <line x1="740" y1="408" x2="740" y2="440" stroke="#0B0B0C" stroke-width="1.8" marker-end="url(#arrowDark)"/>
+
+          <!-- LAYER 4: DETERMINISTIC ENGINE & REVIEWER -->
+          <rect x="32" y="446" width="504" height="68" rx="10" fill="#0B0B0C"/>
+          <text x="284" y="473" text-anchor="middle" font-size="14" font-weight="700" fill="#FFFFFF">3 · MOTEUR DE CALCUL DÉTERMINISTE</text>
+          <text x="284" y="494" text-anchor="middle" font-size="11.5" fill="#C4C8D2">100 % des sommes, SIG, IS, TVA, CVAE, barèmes IK et séquences FEC par code exact</text>
+
+          <line x1="536" y1="480" x2="564" y2="480" stroke="#0B0B0C" stroke-width="1.8" marker-end="url(#arrowDark)"/>
+
+          <rect x="570" y="446" width="498" height="68" rx="10" fill="#ECF7F0" stroke="#146C3B" stroke-width="1.5"/>
+          <text x="819" y="473" text-anchor="middle" font-size="14" font-weight="700" fill="#146C3B">4 · AGENT RÉVISEUR INDÉPENDANT</text>
+          <text x="819" y="494" text-anchor="middle" font-size="11.5" fill="#1E4D31">Compare chiffre à chiffre le livrable au moteur · Rejet automatique de tout écart</text>
+
+          <!-- LAYER 5: SECURITY & DATA ISOLATION -->
+          <rect x="32" y="534" width="1036" height="44" rx="8" fill="#17181B"/>
+          <text x="550" y="561" text-anchor="middle" font-size="12" font-weight="600" fill="#FFFFFF">
+            SOCLE SÉCURITÉ UE  ·  Base de données isolée par cabinet  ·  Permissions granulaires  ·  Journal d'audit horodaté  ·  Zéro entraînement
+          </text>
+
+          <!-- Arrows Layer 5 -> 6 -->
+          <line x1="360" y1="578" x2="360" y2="606" stroke="#0B0B0C" stroke-width="1.8" marker-end="url(#arrowDark)"/>
+          <line x1="770" y1="578" x2="770" y2="606" stroke="#9E1F24" stroke-width="1.8" marker-end="url(#arrowDark)"/>
+
+          <!-- LAYER 6: EXPERT-COMPTABLE -->
+          <rect x="32" y="612" width="600" height="58" rx="10" fill="#FFFFFF" stroke="#0B0B0C" stroke-width="1.8"/>
+          <text x="332" y="637" text-anchor="middle" font-size="14" font-weight="700" fill="#0B0B0C">EXPERT-COMPTABLE — VALIDATION EN 1 CLIC PAR LOT</text>
+          <text x="332" y="655" text-anchor="middle" font-size="11.5" fill="#5E626B">Lots contrôlés (TVA, paie, écritures, liasses) · Signature tracée (Ord. 1945 art. 12)</text>
+
+          <rect x="652" y="612" width="416" height="58" rx="10" fill="#FDECEC" stroke="#9E1F24" stroke-width="1.5"/>
+          <text x="860" y="637" text-anchor="middle" font-size="13.5" font-weight="700" fill="#9E1F24">FILE D'EXCEPTIONS COURTE (ESCALADE)</text>
+          <text x="860" y="655" text-anchor="middle" font-size="11.5" fill="#781A1E">Alertes LCB-FT confidentielles · Trou FEC · Conseil fiscal</text>
+        </svg>
+
+        <div class="arch-mobile-flow" aria-label="Architecture EXIOR vue mobile">
+          <div class="am-box">
+            <div class="am-lbl">1 · Flux &amp; connecteurs cabinet</div>
+            <div class="am-title">GED, Banques, FEC / Logiciel, Paie &amp; DSN</div>
+          </div>
+          <div class="am-arrow">↓</div>
+          <div class="am-box dark">
+            <div class="am-lbl">2 · Orchestration</div>
+            <div class="am-title">Orchestrateur EXIOR</div>
+            <div class="am-sub">Routage par mission · Contexte cloisonné par cabinet et dossier</div>
+          </div>
+          <div class="am-arrow">↓</div>
+          <div class="am-box">
+            <div class="am-lbl">3 · Neuf agents spécialisés</div>
+            <div class="am-agents">
+              <div class="am-agent">Collecte &amp; tri</div>
+              <div class="am-agent">Saisie PCG</div>
+              <div class="am-agent">Lettrage &amp; banque</div>
+              <div class="am-agent">TVA &amp; déclarations</div>
+              <div class="am-agent">Révision &amp; clôture</div>
+              <div class="am-agent">Paie &amp; DSN</div>
+              <div class="am-agent">Liasse &amp; plaquette</div>
+              <div class="am-agent">Relances clients</div>
+              <div class="am-agent" style="grid-column:1/-1;">Conformité FEC &amp; vigilance LCB-FT</div>
+            </div>
+          </div>
+          <div class="am-arrow">↓</div>
+          <div class="am-box dark">
+            <div class="am-lbl">4 · Calcul exact</div>
+            <div class="am-title">Moteur de calcul déterministe</div>
+            <div class="am-sub">100 % des sommes, SIG, IS, TVA, CVAE et FEC par code</div>
+          </div>
+          <div class="am-arrow">↓</div>
+          <div class="am-box ok">
+            <div class="am-lbl">5 · Contrôle croisé</div>
+            <div class="am-title">Agent réviseur indépendant</div>
+            <div class="am-sub">Vérification chiffre à chiffre contre le moteur</div>
+          </div>
+          <div class="am-box dark">
+            <div class="am-title">Socle sécurité UE</div>
+            <div class="am-sub">Base isolée par cabinet · Permissions · Journal d'audit · Zéro entraînement</div>
+          </div>
+          <div class="am-arrow">↓</div>
+          <div class="am-box" style="border:1.5px solid #0B0B0C;background:#FFFFFF;">
+            <div class="am-title">Expert-comptable : Validation 1 clic par lot</div>
+            <div class="am-sub">Lots conformes prêts à signer (Ord. 1945 art. 12)</div>
+          </div>
+          <div class="am-box alert">
+            <div class="am-title">File d'exceptions courte</div>
+            <div class="am-sub">Alertes LCB-FT confidentielles · Trou FEC · Conseil fiscal</div>
+          </div>
+        </div>
+
+        <div class="arch-legend">
+          <div class="arch-legend-item">
+            <h4>Zéro calcul « de tête »</h4>
+            <p>Le modèle classe les pièces, interprète les libellés et rédige. Le moteur déterministe exécute chaque somme, barème et contrôle croisé.</p>
+          </div>
+          <div class="arch-legend-item">
+            <h4>Double passage producteur + réviseur</h4>
+            <p>Chaque livrable sensible passe par un second agent qui confronte chaque montant au moteur. En cas d'écart, la valeur du moteur prévaut.</p>
+          </div>
+          <div class="arch-legend-item">
+            <h4>Souveraineté de l'expert-comptable</h4>
+            <p>Aucune écriture ni déclaration n'est validée seule : tout arrive prêt dans votre file « 1 clic » ou isolé en file d'exceptions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. DEMOS REELLES -->
+  <section id="demos">
+    <div class="container">
+      <div class="sec-head">
+        <div class="eyebrow">Démos &amp; captures de la console agent</div>
+        <h2>Six cas réels exécutés et contrôlés par nos agents spécialisés.</h2>
+        <p>
+          Parcourez six captures authentiques de la Console Production EXIOR alimentées par nos tests sur les 17 missions d'un collaborateur comptable.
+        </p>
+      </div>
+
+      <div class="demo-disclaimer">
+        <span class="mono" style="font-weight:700;">NOTE</span>
+        <span>Les données affichées sont des <strong>dossiers de démonstration fictifs</strong> (<em>SARL Atelier Bois du Sud</em>, <em>SAS Nexus Conseil</em>, <em>EURL Primeurs Vallée</em>).</span>
+      </div>
+
+      <div class="demo-tabs" role="tablist" aria-label="Sélecteur de cas de démonstration">
+        <button class="demo-tab active" role="tab" aria-selected="true" data-demo="0" type="button">TVA-01 · CA3 Octobre</button>
+        <button class="demo-tab" role="tab" aria-selected="false" data-demo="1" type="button">RAP-01 · Rapprochement 60 lignes</button>
+        <button class="demo-tab" role="tab" aria-selected="false" data-demo="2" type="button">SAI-02 · Autoliquidation UE</button>
+        <button class="demo-tab" role="tab" aria-selected="false" data-demo="3" type="button">LET-02 · Lettrage &amp; double règlement</button>
+        <button class="demo-tab" role="tab" aria-selected="false" data-demo="4" type="button">LIA-01 · Résultat fiscal &amp; IS</button>
+        <button class="demo-tab" role="tab" aria-selected="false" data-demo="5" type="button">AUD-02 · Vigilance LCB-FT</button>
+      </div>
+
+      <div class="demo-stage">
+        <div class="demo-stage-bar">
+          <div>
+            <div class="demo-stage-title" id="stageTitle">TVA-01 — Préparation CA3 mensuelle Octobre 2026 (DOS-01)</div>
+            <div class="demo-stage-meta" id="stageDesc">TVA collectée 10 500,00 € · TVA déductible 7 970,00 € · Solde à payer 2 530,00 € · Autoliquidation UE symétrique et livraisons exonérées vérifiées (7/7 contrôles).</div>
+          </div>
+          <span class="mono" style="font-size:12px;color:#5E626B;" id="stageBadge">DECL-PROP-001</span>
+        </div>
+        <picture>
+          <source id="stageSource" type="image/webp" srcset="assets/demos/demo_tva_01.webp">
+          <img id="stageImg" src="assets/demos/demo_tva_01.jpg" width="1600" height="1071" alt="Capture de la console EXIOR — déclaration CA3 d'octobre 2026, dossier de démonstration" fetchpriority="high">
+        </picture>
+      </div>
+
+      <div class="demo-grid-thumbs">
+        <div class="thumb-card active" data-demo="0">
+          <picture>
+            <source type="image/webp" srcset="assets/demos/demo_tva_01_thumb.webp">
+            <img src="assets/demos/demo_tva_01_thumb.jpg" width="800" height="536" alt="TVA-01 — CA3 d'octobre, dossier de démonstration" loading="lazy">
+          </picture>
+          <div class="thumb-body">
+            <div class="thumb-code">TVA-01 · DOS-01</div>
+            <div class="thumb-title">CA3 d'octobre : 2 530 € à payer, autoliquidation et UE vérifiées</div>
+          </div>
+        </div>
+        <div class="thumb-card" data-demo="1">
+          <picture>
+            <source type="image/webp" srcset="assets/demos/demo_rap_01_thumb.webp">
+            <img src="assets/demos/demo_rap_01_thumb.jpg" width="800" height="536" alt="RAP-01 — rapprochement bancaire 60 lignes, dossier de démonstration" loading="lazy">
+          </picture>
+          <div class="thumb-body">
+            <div class="thumb-code">RAP-01 · DOS-01</div>
+            <div class="thumb-title">Rapprochement 60 lignes vs 512 : écart 2 160,80 € isolé à l'euro près</div>
+          </div>
+        </div>
+        <div class="thumb-card" data-demo="2">
+          <picture>
+            <source type="image/webp" srcset="assets/demos/demo_sai_02_thumb.webp">
+            <img src="assets/demos/demo_sai_02_thumb.jpg" width="800" height="536" alt="SAI-02 — facture UE autoliquidée, dossier de démonstration" loading="lazy">
+          </picture>
+          <div class="thumb-body">
+            <div class="thumb-code">SAI-02 · DOS-02</div>
+            <div class="thumb-title">Facture UE Meta Ireland : autoliquidation 20 % équilibrée (960 €)</div>
+          </div>
+        </div>
+        <div class="thumb-card" data-demo="3">
+          <picture>
+            <source type="image/webp" srcset="assets/demos/demo_let_02_thumb.webp">
+            <img src="assets/demos/demo_let_02_thumb.jpg" width="800" height="536" alt="LET-02 — lettrage fournisseurs et double règlement, dossier de démonstration" loading="lazy">
+          </picture>
+          <div class="thumb-body">
+            <div class="thumb-code">LET-02 · DOS-02</div>
+            <div class="thumb-title">Lettrage 401 : avoir 600 € soldé, double règlement 240 € reclassé</div>
+          </div>
+        </div>
+        <div class="thumb-card" data-demo="4">
+          <picture>
+            <source type="image/webp" srcset="assets/demos/demo_lia_01_thumb.webp">
+            <img src="assets/demos/demo_lia_01_thumb.jpg" width="800" height="536" alt="LIA-01 — résultat fiscal et IS, dossier de démonstration" loading="lazy">
+          </picture>
+          <div class="thumb-body">
+            <div class="thumb-code">LIA-01 · DOS-02</div>
+            <div class="thumb-title">Résultat fiscal 62 000 € &amp; IS 15 % / 25 % : solde 3 050 € exact</div>
+          </div>
+        </div>
+        <div class="thumb-card" data-demo="5">
+          <picture>
+            <source type="image/webp" srcset="assets/demos/demo_aud_02_thumb.webp">
+            <img src="assets/demos/demo_aud_02_thumb.jpg" width="800" height="536" alt="AUD-02 — revue LCB-FT confidentielle, dossier de démonstration" loading="lazy">
+          </picture>
+          <div class="thumb-body">
+            <div class="thumb-code">AUD-02 · DOS-03</div>
+            <div class="thumb-title">Vigilance LCB-FT : 34 300 € gelés en file confidentielle EC</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. PREUVE CHIFFREE & AVANT / APRES -->
+  <section id="preuve" class="alt-sec">
+    <div class="container">
+      <div class="sec-head">
+        <div class="eyebrow">Preuve chiffrée &amp; garde-fou technique</div>
+        <h2>Pourquoi le moteur de calcul déterministe rend la production fiable.</h2>
+        <p>
+          Nous avons exécuté 35 cas réels sur les 17 missions d'un collaborateur. Au premier passage sans moteur dédié, 31 cas sur 35 étaient justes à 100 % (104/109 contrôles). Nous avons isolé les 4 cas imparfaits et branché le moteur de calcul déterministe + l'agent réviseur : <strong>4 sur 4 sont passés à 100 % (18/18 contrôles)</strong>.
+        </p>
+      </div>
+
+      <div class="proof-stats">
+        <div class="stat-box">
+          <div class="big">17</div>
+          <div class="desc">missions comptables testées de bout en bout (collecte à l'IS et LCB-FT)</div>
+        </div>
+        <div class="stat-box">
+          <div class="big">31 / 35</div>
+          <div class="desc">cas justes à 100 % dès le premier passage (95,4 % des contrôles unitaires)</div>
+        </div>
+        <div class="stat-box">
+          <div class="big">4 / 4</div>
+          <div class="desc">cas restants corrigés à 100 % après passage par le moteur déterministe</div>
+        </div>
+        <div class="stat-box">
+          <div class="big">86 %</div>
+          <div class="desc">du temps mensuel (121 h / 140 h) pris en charge hors relation client et signature</div>
+        </div>
+      </div>
+
+      <div class="ba-grid">
+        <div class="ba-card before">
+          <span class="ba-badge">Avant · Modèle seul (PLQ-01)</span>
+          <h3>Erreur arithmétique de +45 000 € en cascade</h3>
+          <p style="font-size:14px;color:#5C1216;">
+            Sur les SIG de <em>SARL Atelier Bois du Sud</em>, le modèle seul a calculé <span class="mono">63 000 + 620 000 − 345 000 = 383 000 €</span> au lieu de <span class="mono">338 000 €</span> (inversion de chiffres), faussant toute la cascade jusqu'au résultat net.
+          </p>
+          <table class="ba-table">
+            <thead><tr><th>Solde intermédiaire (PLQ-01)</th><th>Montant erroné</th></tr></thead>
+            <tbody>
+              <tr><td>Valeur ajoutée (VA)</td><td class="ba-err">383 000,00 € (+45 k€)</td></tr>
+              <tr><td>Excédent brut d'exploitation (EBE)</td><td class="ba-err">124 000,00 € (+45 k€)</td></tr>
+              <tr><td>Résultat d'exploitation (REX)</td><td class="ba-err">96 000,00 € (+45 k€)</td></tr>
+              <tr><td>RCAI / Résultat net</td><td class="ba-err">91 500 € / 80 000 €</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="ba-card after">
+          <span class="ba-badge">Après · Moteur déterministe + réviseur (PLQ-01R)</span>
+          <h3>5/5 contrôles exacts · Verdict Réviseur OK</h3>
+          <p style="font-size:14px;color:#1E4D31;">
+            L'agent appelle la fonction déterministe <span class="mono">calculer_sig</span> puis l'agent réviseur vérifie chaque montant ligne par ligne contre la sortie du moteur. L'erreur disparaît définitivement.
+          </p>
+          <table class="ba-table">
+            <thead><tr><th>Solde intermédiaire (PLQ-01R)</th><th>Montant vérifié</th></tr></thead>
+            <tbody>
+              <tr><td>Valeur ajoutée (VA)</td><td class="ba-ok">338 000,00 € (exact)</td></tr>
+              <tr><td>Excédent brut d'exploitation (EBE)</td><td class="ba-ok">79 000,00 € (exact)</td></tr>
+              <tr><td>Résultat d'exploitation (REX)</td><td class="ba-ok">51 000,00 € (exact)</td></tr>
+              <tr><td>RCAI / Résultat net</td><td class="ba-ok">46 500 € / 35 000 €</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="rerun-strip">
+        <div class="rerun-item">
+          <strong>AUD-01R · Contrôle FEC (5/5 OK)</strong>
+          Le parseur séquentiel identifie immédiatement le trou <span class="mono">EC-1044</span>, l'écart CA de 16 000 € et bloque le dépôt.
+        </div>
+        <div class="rerun-item">
+          <strong>DEC-02R · CFE &amp; CVAE (4/4 OK)</strong>
+          Le moteur applique automatiquement le minimum légal de CVAE à 63,00 € (vs 38,13 € brut) et la CFE à 3 480,00 €.
+        </div>
+        <div class="rerun-item">
+          <strong>INV-02R · Stocks &amp; créances (4/4 OK)</strong>
+          Variation de stock de 4 700 €, dépréciation de 3 000 € sur le HT et reclassement 416/411 complet.
+        </div>
+      </div>
+
+      <div class="time-split-box">
+        <div class="time-split-head">
+          <h3>Répartition mensuelle sur un portefeuille de 50 dossiers (140 h historiques)</h3>
+          <span>121 h produites par EXIOR · 19 h humaines restantes</span>
+        </div>
+        <div class="split-bar" aria-label="86% production EXIOR, 11% relation client, 3% validation EC">
+          <div class="seg-agent">86 % · Production &amp; contrôles EXIOR (121 h)</div>
+          <div class="seg-client">11 % · Client (16 h)</div>
+          <div class="seg-ec" title="2,6 % Validation EC en 1 clic (3 h)"></div>
+        </div>
+        <div class="split-legend">
+          <span><i class="dot" style="background:#FFFFFF;"></i> Agents EXIOR : 121 h (86 %) — saisie, banque, TVA, révision, liasse, paie/DSN, relances</span>
+          <span><i class="dot" style="background:#4B5563;"></i> Relation client (associé ou chargé de relation) : 16 h (11 %)</span>
+          <span><i class="dot" style="background:#22C55E;"></i> Validation / signature Expert-Comptable (1 clic + exceptions) : 3 h (2 %)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. COMPARAISON DES COUTS & TARIFS -->
+  <section id="tarifs">
+    <div class="container">
+      <div class="sec-head">
+        <div class="eyebrow">Comparaison &amp; grille tarifaire</div>
+        <h2>Moins cher qu'un salaire chargé. Disponible douze mois sur douze.</h2>
+        <p>
+          Un collaborateur comptable confirmé représente un coût médian de <strong>4 560 € chargés par mois</strong> (3 375 € pour un assistant). EXIOR absorbe 86 % de sa charge de production sans arrêt maladie, sans turnover et sans pic de retard.
+        </p>
+      </div>
+
+      <div class="cmp-table-wrap">
+        <table class="cmp-table">
+          <thead>
+            <tr>
+              <th>Critère (portefeuille ~50 dossiers)</th>
+              <th>Collaborateur salarié classique</th>
+              <th>EXIOR Collaborateur + Validation EC</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Coût mensuel de référence</td>
+              <td><strong>~4 560 € / mois</strong> chargés (assistant : ~3 375 €)</td>
+              <td><strong>2 990 € HT / mois</strong> (+ 990 € HT mise en place)</td>
+            </tr>
+            <tr>
+              <td>Temps humain mobilisé / mois</td>
+              <td>140 h saturées par la production</td>
+              <td><strong>19 h</strong> (16 h relation client + 3 h clics EC)</td>
+            </tr>
+            <tr>
+              <td>Continuité &amp; capacité</td>
+              <td>Congés, absences, turnover, 1 portefeuille max.</td>
+              <td><strong>Continu</strong> · 1 chargé de relation suit jusqu'à 8 portefeuilles</td>
+            </tr>
+            <tr>
+              <td>Économie pour le cabinet</td>
+              <td>Base historique (5 postes = 22 800 € / mois)</td>
+              <td><strong>1 570 € / mois</strong> (18 840 € / an) si relation absorbée par l'associé<br><span style="color:#5E626B;font-size:13px;">ou 1 002 € / mois net (12 000 € / an) après 568 € de relation dédiée</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pricing-grid">
+        <div class="price-card">
+          <div>
+            <div class="price-tag">Test réel · 48 h</div>
+            <h3>EXIOR One</h3>
+            <div class="price-amount">190 € HT</div>
+            <div class="price-unit">intervention unitaire sans engagement</div>
+            <div class="price-setup">Sur un vrai dossier de votre cabinet</div>
+            <ul class="price-list">
+              <li>Saisie, rapprochement bancaire, TVA et révision sur pièces réelles</li>
+              <li>Passage complet au moteur déterministe et à l'agent réviseur</li>
+              <li>Livrable prêt à valider + rapport d'anomalies sous 48 h</li>
+            </ul>
+          </div>
+          <a class="btn btn-outline" href="mailto:exior.tech@gmail.com?subject=EXIOR%20One%20(190%20%E2%82%AC%20HT)%20%E2%80%94%20Test%20dossier%20r%C3%A9el">Tester sur un dossier</a>
+        </div>
+
+        <div class="price-card">
+          <div>
+            <div class="price-tag">Poste Junior</div>
+            <h3>Assistant comptable</h3>
+            <div class="price-amount">1 990 € HT</div>
+            <div class="price-unit">par mois · vs ~3 375 € chargés</div>
+            <div class="price-setup">Mise en place : 990 € HT</div>
+            <ul class="price-list">
+              <li>Collecte, tri, doublons et relances pièces J-5</li>
+              <li>Saisie PCG, notes de frais / IK et lettrage 401/411</li>
+              <li>Rapprochement bancaire et préparation CA3</li>
+              <li>Économie brute : 1 385 € / mois (817 € net avec relation)</li>
+            </ul>
+          </div>
+          <a class="btn btn-outline" href="mailto:exior.tech@gmail.com?subject=Offre%20EXIOR%20Assistant%20(1%20990%20%E2%82%AC%20HT%2Fmois)">Demander le déploiement</a>
+        </div>
+
+        <div class="price-card featured">
+          <div>
+            <div class="price-tag">Recommandé · 50 dossiers</div>
+            <h3>Collaborateur confirmé</h3>
+            <div class="price-amount">2 990 € HT</div>
+            <div class="price-unit">par mois · vs ~4 560 € chargés</div>
+            <div class="price-setup">Mise en place EXIOR Transformation : 990 € HT</div>
+            <ul class="price-list">
+              <li>17 missions complètes : saisie, TVA, paie/DSN, inventaire, révision, liasse, plaquette, FEC</li>
+              <li>Moteur de calcul déterministe + agent réviseur</li>
+              <li>File de validation EC en 1 clic &amp; alertes LCB-FT</li>
+              <li>Jusqu'à 18 840 € / an économisés par poste</li>
+            </ul>
+          </div>
+          <a class="btn btn-white" href="mailto:exior.tech@gmail.com?subject=Offre%20EXIOR%20Collaborateur%20(2%20990%20%E2%82%AC%20HT%2Fmois)">Démarrer sur 1 poste</a>
+        </div>
+
+        <div class="price-card">
+          <div>
+            <div class="price-tag">Cabinet · ~250 dossiers</div>
+            <h3>Pack 5 postes</h3>
+            <div class="price-amount">12 490 € HT</div>
+            <div class="price-unit">par mois · soit 2 498 € / poste</div>
+            <div class="price-setup">Mise en place : 4 950 € HT (5 × 990 €)</div>
+            <ul class="price-list">
+              <li>Remplace la production de 5 postes (vs 22 800 € / mois chargés)</li>
+              <li>Économie jusqu'à 10 310 € / mois (123 700 € / an) si relation absorbée</li>
+              <li>Ou 7 470 € / mois (89 600 € / an) avec 0,57 ETP relation conservé</li>
+              <li>Ou 5 750 € / mois (69 000 € / an) avec 1 ETP dédié conservé</li>
+            </ul>
+          </div>
+          <a class="btn btn-primary" href="mailto:exior.tech@gmail.com?subject=Offre%20EXIOR%20Cabinet%205%20postes%20(12%20490%20%E2%82%AC%20HT%2Fmois)">Étudier le pack 5 postes</a>
+        </div>
+      </div>
+
+      <p class="pricing-footnote">
+        Tous les montants sont exprimés en euros HT. La mise en place EXIOR Transformation (990 € HT / poste) couvre le paramétrage PCG, les connecteurs, le moteur de contrôle et la file de validation EC. Engagement initial souple de 3 mois.
+      </p>
+    </div>
+  </section>
+
+  <!-- 7. SECURITE & CONFORMITE -->
+  <section id="conformite" class="dark-sec">
+    <div class="container">
+      <div class="sec-head">
+        <div class="eyebrow">Sécurité &amp; cadre ordinal</div>
+        <h2>Conçu pour respecter l'ordonnance de 1945, le RGPD et le secret professionnel.</h2>
+        <p>
+          Un outil comptable ne vaut rien s'il expose le cabinet sur le plan disciplinaire, pénal ou documentaire. EXIOR intègre dès la conception les garanties exigées par la profession.
+        </p>
+      </div>
+
+      <div class="sec-grid">
+        <div class="sec-card">
+          <div class="sec-k">1</div>
+          <h3>Hébergement en Union Européenne</h3>
+          <p>
+            Traitement des données et stockage hébergés en Europe, encadrés par un contrat de sous-traitance RGPD (DPA) dédié au cabinet.
+          </p>
+        </div>
+
+        <div class="sec-card">
+          <div class="sec-k">2</div>
+          <h3>Isolation stricte par cabinet</h3>
+          <p>
+            Chaque cabinet dispose de sa propre base de données cloisonnée, de permissions granulaires et d'un journal d'audit horodaté des actions.
+          </p>
+        </div>
+
+        <div class="sec-card">
+          <div class="sec-k">3</div>
+          <h3>Zéro entraînement sur vos données</h3>
+          <p>
+            Clause contractuelle de non-réutilisation et zéro conservation pour entraînement : vos FEC, pièces et liasses ne servent jamais à entraîner un modèle.
+          </p>
+        </div>
+
+        <div class="sec-card">
+          <div class="sec-k">4</div>
+          <h3>Validation souveraine (Ord. 1945 art. 12)</h3>
+          <p>
+            L'expert-comptable conserve 100 % de la signature et de la responsabilité : aucun dépôt fiscal ou social ne part sans son clic tracé.
+          </p>
+        </div>
+
+        <div class="sec-card">
+          <div class="sec-k">5</div>
+          <h3>Secret professionnel &amp; lettre de mission</h3>
+          <p>
+            Respect de l'art. 21 de l'ordonnance de 1945 et de l'art. 226-13 du Code pénal, mention en lettre de mission (art. 151 décret 2012-432) et anonymisation recommandée sur la paie.
+          </p>
+        </div>
+
+        <div class="sec-card">
+          <div class="sec-k">6</div>
+          <h3>LCB-FT réservée au professionnel</h3>
+          <p>
+            L'agent remonte factuellement les opérations atypiques en file confidentielle pour l'expert-comptable, sans alerter le client. La décision et Tracfin restent exclusivement humains.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. FAQ -->
+  <section id="faq" class="alt-sec">
+    <div class="container">
+      <div class="sec-head">
+        <div class="eyebrow">Questions fréquentes</div>
+        <h2>Les réponses directes aux objections des associés.</h2>
+      </div>
+
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>Comment éviter les erreurs de calcul dans les TVA, SIG ou liasses ?</summary>
+          <p>
+            Nos agents n'effectuent jamais d'arithmétique « de tête ». Chaque calcul (SIG, IS par tranches, CA3/CA12, CVAE, barèmes kilométriques, séquences FEC) passe par un moteur déterministe codé, puis par un agent réviseur qui bloque tout écart avant votre validation.
+          </p>
+        </details>
+
+        <details class="faq-item" open>
+          <summary>Devons-nous changer de logiciel comptable ?</summary>
+          <p>
+            Non. EXIOR s'adapte à votre environnement existant à partir de vos exports FEC, journaux, grands livres, relevés et GED, puis vous restitue des lots d'écritures et états prêts à intégrer et valider.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Que reste-t-il concrètement à faire pour nos équipes ?</summary>
+          <p>
+            Sur un portefeuille de 50 dossiers (140 h/mois historiques), il reste environ 16 h de relation client (appels, rendez-vous de bilan) et 3 h de validation de l'expert-comptable en 1 clic par lot + traitement de la file d'exceptions.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Comment est gérée la responsabilité de l'expert-comptable ?</summary>
+          <p>
+            Exactement comme avec un collaborateur salarié : l'agent prépare, justifie et contrôle ; l'expert-comptable appose sa validation tracée avant toute émission. Les montages fiscaux complexes (ex. art. 150-0 B ter) sont automatiquement escaladés sans promesse client.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Comment fonctionne la confidentialité des FEC et bulletins de paie ?</summary>
+          <p>
+            Votre instance est isolée par cabinet, hébergée en Union Européenne, avec clause contractuelle de zéro entraînement sur vos données. Sur les flux nominatifs sensibles (paie/DSN), l'anonymisation préalable est prévue.
+          </p>
+        </details>
+
+        <details class="faq-item">
+          <summary>Peut-on vérifier la qualité sur un de nos vrais dossiers avant de s'engager ?</summary>
+          <p>
+            Oui. C'est précisément le rôle d'EXIOR One (190 € HT) : vous nous confiez un dossier test, et nous vous livrons sous 48 h la saisie, le rapprochement, la TVA et la révision avec tous les contrôles chiffrés.
+          </p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. CTA FINAL -->
+  <section class="cta-final">
+    <div class="container">
+      <div class="eyebrow" style="color:#D4D7DF;justify-content:center;">Passez à la preuve sur vos propres pièces</div>
+      <h2>Confiez-nous un dossier de votre cabinet. Livraison contrôlée en 48 h pour 190 € HT.</h2>
+      <p>
+        Pas de présentation théorique : vous jugez sur vos factures, votre relevé bancaire, votre CA3 et votre révision, avec les écritures et le rapport de contrôle complets.
+      </p>
+      <div class="cta-final-btns">
+        <a class="btn btn-white" href="mailto:exior.tech@gmail.com?subject=Test%20EXIOR%20One%20(190%20%E2%82%AC%20HT)%20%E2%80%94%20Cabinet%20comptable&body=Bonjour%20Guillaume%2C%0A%0ANous%20souhaitons%20tester%20EXIOR%20One%20(190%20%E2%82%AC%20HT)%20sur%20un%20de%20nos%20dossiers.%0A%0ACabinet%20%3A%20%0ALogiciel%20comptable%20%3A%20%0ANombre%20de%20postes%20%3A%20">
+          Tester sur un de vos dossiers — 190 €
+        </a>
+        <a class="btn btn-ghost-dark" href="mailto:exior.tech@gmail.com">Écrire à exior.tech@gmail.com</a>
+      </div>
+    </div>
+  </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-row">
+      <div><b>EXIOR</b> — Automatisations &amp; agents comptables pour cabinets · Dirigé par Guillaume Bauchart, DSCG</div>
+      <div>Contact direct : <a href="mailto:exior.tech@gmail.com" style="color:#FFFFFF;text-decoration:underline;">exior.tech@gmail.com</a> · Dossiers de démonstration fictifs</div>
+    </div>
+  </footer>
+
+  <script>
+    const DEMOS = [
+      {
+        img: "assets/demos/demo_tva_01.png",
+        title: "TVA-01 — Préparation CA3 mensuelle Octobre 2026 (DOS-01)",
+        desc: "TVA collectée 10 500,00 € · TVA déductible 7 970,00 € · Solde à payer 2 530,00 € · Autoliquidation UE symétrique et livraisons exonérées vérifiées (7/7 contrôles).",
+        badge: "DECL-PROP-001"
+      },
+      {
+        img: "assets/demos/demo_rap_01.png",
+        title: "RAP-01 — Rapprochement relevé 60 lignes vs journal 512 (DOS-01)",
+        desc: "54 lignes lettrées automatiquement · Écart brut 2 160,80 € démontré · Virement inconnu X991 (+1 250 €), doublon Telecom (−240 €) et écart Rive Gauche (50 €) isolés.",
+        badge: "RAP-512-OCT26"
+      },
+      {
+        img: "assets/demos/demo_sai_02.png",
+        title: "SAI-02 — Facture UE autoliquidée Meta Ireland (DOS-02)",
+        desc: "Facture IE-META-2026-771 de 800,00 € HT · Autoliquidation art. 283-2 CGI à 20 % (160,00 €) · Écriture équilibrée 6231 / 445662 / 401META / 445200 à 960,00 €.",
+        badge: "EC-PROP-001"
+      },
+      {
+        img: "assets/demos/demo_let_02.png",
+        title: "LET-02 — Lettrage 401 fournisseurs & double règlement (DOS-02)",
+        desc: "ALPHA IT soldé (avoir 600 € + virement 3 000 €) · Double paiement TELECOM (240 €) bloqué et reclassé en OD 409100/401011 · Reste dû CABINET JUR 1 200 €.",
+        badge: "EC-PROP-001"
+      },
+      {
+        img: "assets/demos/demo_lia_01.png",
+        title: "LIA-01 — Passage résultat fiscal & calcul IS 15 % / 25 % (DOS-02)",
+        desc: "Résultat comptable 64 200 € + réintégrations 2 800 € − déficit 5 000 € = 62 000 € · IS 15 % (6 375 €) + 25 % (4 875 €) = 11 250 € · Solde à payer 3 050 €.",
+        badge: "DECL-PROP-001"
+      },
+      {
+        img: "assets/demos/demo_aud_02.png",
+        title: "AUD-02 — Revue confidentielle LCB-FT réservée à l'Expert-Comptable (DOS-03)",
+        desc: "Dépôt espèces 9 800 € sans tickets Z et virement 24 500 € sans justificatif isolés en alerte confidentielle ESC-001 · Zéro écriture générée · Règle anti-divulgation respectée.",
+        badge: "ESC-001"
+      }
+    ];
+
+    function selectDemo(idx) {
+      const d = DEMOS[idx];
+      if (!d) return;
+      document.getElementById("stageImg").src = d.img;
+      document.getElementById("stageImg").alt = d.title;
+      document.getElementById("stageTitle").textContent = d.title;
+      document.getElementById("stageDesc").textContent = d.desc;
+      document.getElementById("stageBadge").textContent = d.badge;
+
+      document.querySelectorAll(".demo-tab").forEach((el, i) => el.classList.toggle("active", i === idx));
+      document.querySelectorAll(".thumb-card").forEach((el, i) => el.classList.toggle("active", i === idx));
+    }
+
+    document.querySelectorAll(".demo-tab, .thumb-card").forEach(el => {
+      el.addEventListener("click", () => {
+        const idx = parseInt(el.getAttribute("data-demo"), 10);
+        selectDemo(idx);
+      });
+    });
+  </script>
+</body>
+</html>
