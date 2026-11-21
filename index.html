@@ -1,48 +1,42 @@
 <script>
     const DEMOS = [
       {
-        webp: "assets/demos/demo_tva_01.webp",
-        jpg: "assets/demos/demo_tva_01.jpg",
+        src: "assets/demos/demo_tva_01.webp",
         title: "TVA-01 — Préparation CA3 mensuelle Octobre 2026 (DOS-01)",
         desc: "TVA collectée 10 500,00 € · TVA déductible 7 970,00 € · Solde à payer 2 530,00 € · Autoliquidation UE symétrique et livraisons exonérées vérifiées (7/7 contrôles).",
         badge: "DECL-PROP-001",
         alt: "Capture de la console EXIOR — déclaration CA3 d'octobre 2026, dossier de démonstration"
       },
       {
-        webp: "assets/demos/demo_rap_01.webp",
-        jpg: "assets/demos/demo_rap_01.jpg",
+        src: "assets/demos/demo_rap_01.webp",
         title: "RAP-01 — Rapprochement relevé 60 lignes vs journal 512 (DOS-01)",
         desc: "54 lignes lettrées automatiquement · Écart brut 2 160,80 € démontré · Virement inconnu X991 (+1 250 €), doublon Telecom (−240 €) et écart Rive Gauche (50 €) isolés.",
         badge: "RAP-512-OCT26",
         alt: "Capture de la console EXIOR — rapprochement bancaire de 60 lignes, dossier de démonstration"
       },
       {
-        webp: "assets/demos/demo_sai_02.webp",
-        jpg: "assets/demos/demo_sai_02.jpg",
+        src: "assets/demos/demo_sai_02.webp",
         title: "SAI-02 — Facture UE autoliquidée Meta Ireland (DOS-02)",
         desc: "Facture IE-META-2026-771 de 800,00 € HT · Autoliquidation art. 283-2 CGI à 20 % (160,00 €) · Écriture équilibrée 6231 / 445662 / 401META / 445200 à 960,00 €.",
         badge: "EC-PROP-001",
         alt: "Capture de la console EXIOR — saisie d'une facture UE autoliquidée, dossier de démonstration"
       },
       {
-        webp: "assets/demos/demo_let_02.webp",
-        jpg: "assets/demos/demo_let_02.jpg",
+        src: "assets/demos/demo_let_02.webp",
         title: "LET-02 — Lettrage 401 fournisseurs & double règlement (DOS-02)",
         desc: "ALPHA IT soldé (avoir 600 € + virement 3 000 €) · Double paiement TELECOM (240 €) bloqué et reclassé en OD 409100/401011 · Reste dû CABINET JUR 1 200 €.",
         badge: "EC-PROP-001",
         alt: "Capture de la console EXIOR — lettrage fournisseurs et double règlement, dossier de démonstration"
       },
       {
-        webp: "assets/demos/demo_lia_01.webp",
-        jpg: "assets/demos/demo_lia_01.jpg",
+        src: "assets/demos/demo_lia_01.webp",
         title: "LIA-01 — Passage résultat fiscal & calcul IS 15 % / 25 % (DOS-02)",
         desc: "Résultat comptable 64 200 € + réintégrations 2 800 € − déficit 5 000 € = 62 000 € · IS 15 % (6 375 €) + 25 % (4 875 €) = 11 250 € · Solde à payer 3 050 €.",
         badge: "DECL-PROP-001",
         alt: "Capture de la console EXIOR — calcul de l'impôt sur les sociétés, dossier de démonstration"
       },
       {
-        webp: "assets/demos/demo_aud_02.webp",
-        jpg: "assets/demos/demo_aud_02.jpg",
+        src: "assets/demos/demo_aud_02.webp",
         title: "AUD-02 — Revue confidentielle LCB-FT réservée à l'Expert-Comptable (DOS-03)",
         desc: "Dépôt espèces 9 800 € sans tickets Z et virement 24 500 € sans justificatif isolés en alerte confidentielle ESC-001 · Zéro écriture générée · Règle anti-divulgation respectée.",
         badge: "ESC-001",
@@ -54,9 +48,7 @@
       const d = DEMOS[idx];
       if (!d) return;
       const img = document.getElementById("stageImg");
-      const source = document.getElementById("stageSource");
-      source.srcset = d.webp;
-      img.src = d.jpg;
+      img.src = d.src;
       img.alt = d.alt;
       document.getElementById("stageTitle").textContent = d.title;
       document.getElementById("stageDesc").textContent = d.desc;
@@ -503,68 +495,47 @@
           </div>
           <span class="mono" style="font-size:12px;color:#5E626B;" id="stageBadge">DECL-PROP-001</span>
         </div>
-        <picture>
-          <source id="stageSource" type="image/webp" srcset="assets/demos/demo_tva_01.webp">
-          <img id="stageImg" src="assets/demos/demo_tva_01.jpg" width="1600" height="1071" alt="Capture de la console EXIOR — déclaration CA3 d'octobre 2026, dossier de démonstration" fetchpriority="high">
-        </picture>
+        <img id="stageImg" src="assets/demos/demo_tva_01.webp" width="1600" height="1071" alt="Capture de la console EXIOR — déclaration CA3 d'octobre 2026, dossier de démonstration" fetchpriority="high">
       </div>
 
       <div class="demo-grid-thumbs">
         <div class="thumb-card active" data-demo="0">
-          <picture>
-            <source type="image/webp" srcset="assets/demos/demo_tva_01_thumb.webp">
-            <img src="assets/demos/demo_tva_01_thumb.jpg" width="800" height="536" alt="TVA-01 — CA3 d'octobre, dossier de démonstration" loading="lazy">
-          </picture>
+          <img src="assets/demos/demo_tva_01_thumb.webp" width="800" height="536" alt="TVA-01 — CA3 d'octobre, dossier de démonstration" loading="lazy">
           <div class="thumb-body">
             <div class="thumb-code">TVA-01 · DOS-01</div>
             <div class="thumb-title">CA3 d'octobre : 2 530 € à payer, autoliquidation et UE vérifiées</div>
           </div>
         </div>
         <div class="thumb-card" data-demo="1">
-          <picture>
-            <source type="image/webp" srcset="assets/demos/demo_rap_01_thumb.webp">
-            <img src="assets/demos/demo_rap_01_thumb.jpg" width="800" height="536" alt="RAP-01 — rapprochement bancaire 60 lignes, dossier de démonstration" loading="lazy">
-          </picture>
+          <img src="assets/demos/demo_rap_01_thumb.webp" width="800" height="536" alt="RAP-01 — rapprochement bancaire 60 lignes, dossier de démonstration" loading="lazy">
           <div class="thumb-body">
             <div class="thumb-code">RAP-01 · DOS-01</div>
             <div class="thumb-title">Rapprochement 60 lignes vs 512 : écart 2 160,80 € isolé à l'euro près</div>
           </div>
         </div>
         <div class="thumb-card" data-demo="2">
-          <picture>
-            <source type="image/webp" srcset="assets/demos/demo_sai_02_thumb.webp">
-            <img src="assets/demos/demo_sai_02_thumb.jpg" width="800" height="536" alt="SAI-02 — facture UE autoliquidée, dossier de démonstration" loading="lazy">
-          </picture>
+          <img src="assets/demos/demo_sai_02_thumb.webp" width="800" height="536" alt="SAI-02 — facture UE autoliquidée, dossier de démonstration" loading="lazy">
           <div class="thumb-body">
             <div class="thumb-code">SAI-02 · DOS-02</div>
             <div class="thumb-title">Facture UE Meta Ireland : autoliquidation 20 % équilibrée (960 €)</div>
           </div>
         </div>
         <div class="thumb-card" data-demo="3">
-          <picture>
-            <source type="image/webp" srcset="assets/demos/demo_let_02_thumb.webp">
-            <img src="assets/demos/demo_let_02_thumb.jpg" width="800" height="536" alt="LET-02 — lettrage fournisseurs et double règlement, dossier de démonstration" loading="lazy">
-          </picture>
+          <img src="assets/demos/demo_let_02_thumb.webp" width="800" height="536" alt="LET-02 — lettrage fournisseurs et double règlement, dossier de démonstration" loading="lazy">
           <div class="thumb-body">
             <div class="thumb-code">LET-02 · DOS-02</div>
             <div class="thumb-title">Lettrage 401 : avoir 600 € soldé, double règlement 240 € reclassé</div>
           </div>
         </div>
         <div class="thumb-card" data-demo="4">
-          <picture>
-            <source type="image/webp" srcset="assets/demos/demo_lia_01_thumb.webp">
-            <img src="assets/demos/demo_lia_01_thumb.jpg" width="800" height="536" alt="LIA-01 — résultat fiscal et IS, dossier de démonstration" loading="lazy">
-          </picture>
+          <img src="assets/demos/demo_lia_01_thumb.webp" width="800" height="536" alt="LIA-01 — résultat fiscal et IS, dossier de démonstration" loading="lazy">
           <div class="thumb-body">
             <div class="thumb-code">LIA-01 · DOS-02</div>
             <div class="thumb-title">Résultat fiscal 62 000 € &amp; IS 15 % / 25 % : solde 3 050 € exact</div>
           </div>
         </div>
         <div class="thumb-card" data-demo="5">
-          <picture>
-            <source type="image/webp" srcset="assets/demos/demo_aud_02_thumb.webp">
-            <img src="assets/demos/demo_aud_02_thumb.jpg" width="800" height="536" alt="AUD-02 — revue LCB-FT confidentielle, dossier de démonstration" loading="lazy">
-          </picture>
+          <img src="assets/demos/demo_aud_02_thumb.webp" width="800" height="536" alt="AUD-02 — revue LCB-FT confidentielle, dossier de démonstration" loading="lazy">
           <div class="thumb-body">
             <div class="thumb-code">AUD-02 · DOS-03</div>
             <div class="thumb-title">Vigilance LCB-FT : 34 300 € gelés en file confidentielle EC</div>
