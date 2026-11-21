@@ -660,6 +660,8 @@ section { padding: 84px 0; }
   letter-spacing: -0.02em;
   line-height: 1.1;
   white-space: nowrap;
+  font-variant-numeric: lining-nums;
+  word-spacing: 0.18em;
 }
 .price-card.featured .price-amount { color: #FFFFFF; }
 .price-unit {
