@@ -1,94 +1,4 @@
-<script>
-    const DEMOS = [
-      {
-        src: "assets/demos/demo_tva_01.webp",
-        title: "TVA-01 — Préparation CA3 mensuelle Octobre 2026 (DOS-01)",
-        desc: "TVA collectée 10 500,00 € · TVA déductible 7 970,00 € · Solde à payer 2 530,00 € · Autoliquidation UE symétrique et livraisons exonérées vérifiées (7/7 contrôles).",
-        badge: "DECL-PROP-001",
-        alt: "Capture de la console EXIOR — déclaration CA3 d'octobre 2026, dossier de démonstration"
-      },
-      {
-        src: "assets/demos/demo_rap_01.webp",
-        title: "RAP-01 — Rapprochement relevé 60 lignes vs journal 512 (DOS-01)",
-        desc: "54 lignes lettrées automatiquement · Écart brut 2 160,80 € démontré · Virement inconnu X991 (+1 250 €), doublon Telecom (−240 €) et écart Rive Gauche (50 €) isolés.",
-        badge: "RAP-512-OCT26",
-        alt: "Capture de la console EXIOR — rapprochement bancaire de 60 lignes, dossier de démonstration"
-      },
-      {
-        src: "assets/demos/demo_sai_02.webp",
-        title: "SAI-02 — Facture UE autoliquidée Meta Ireland (DOS-02)",
-        desc: "Facture IE-META-2026-771 de 800,00 € HT · Autoliquidation art. 283-2 CGI à 20 % (160,00 €) · Écriture équilibrée 6231 / 445662 / 401META / 445200 à 960,00 €.",
-        badge: "EC-PROP-001",
-        alt: "Capture de la console EXIOR — saisie d'une facture UE autoliquidée, dossier de démonstration"
-      },
-      {
-        src: "assets/demos/demo_let_02.webp",
-        title: "LET-02 — Lettrage 401 fournisseurs & double règlement (DOS-02)",
-        desc: "ALPHA IT soldé (avoir 600 € + virement 3 000 €) · Double paiement TELECOM (240 €) bloqué et reclassé en OD 409100/401011 · Reste dû CABINET JUR 1 200 €.",
-        badge: "EC-PROP-001",
-        alt: "Capture de la console EXIOR — lettrage fournisseurs et double règlement, dossier de démonstration"
-      },
-      {
-        src: "assets/demos/demo_lia_01.webp",
-        title: "LIA-01 — Passage résultat fiscal & calcul IS 15 % / 25 % (DOS-02)",
-        desc: "Résultat comptable 64 200 € + réintégrations 2 800 € − déficit 5 000 € = 62 000 € · IS 15 % (6 375 €) + 25 % (4 875 €) = 11 250 € · Solde à payer 3 050 €.",
-        badge: "DECL-PROP-001",
-        alt: "Capture de la console EXIOR — calcul de l'impôt sur les sociétés, dossier de démonstration"
-      },
-      {
-        src: "assets/demos/demo_aud_02.webp",
-        title: "AUD-02 — Revue confidentielle LCB-FT réservée à l'Expert-Comptable (DOS-03)",
-        desc: "Dépôt espèces 9 800 € sans tickets Z et virement 24 500 € sans justificatif isolés en alerte confidentielle ESC-001 · Zéro écriture générée · Règle anti-divulgation respectée.",
-        badge: "ESC-001",
-        alt: "Capture de la console EXIOR — revue confidentielle LCB-FT, dossier de démonstration"
-      }
-    ];
-
-    function selectDemo(idx) {
-      const d = DEMOS[idx];
-      if (!d) return;
-      const img = document.getElementById("stageImg");
-      img.src = d.src;
-      img.alt = d.alt;
-      document.getElementById("stageTitle").textContent = d.title;
-      document.getElementById("stageDesc").textContent = d.desc;
-      document.getElementById("stageBadge").textContent = d.badge;
-
-      document.querySelectorAll(".demo-tab").forEach((el, i) => {
-        el.classList.toggle("active", i === idx);
-        el.setAttribute("aria-selected", i === idx ? "true" : "false");
-      });
-      document.querySelectorAll(".thumb-card").forEach((el, i) => el.classList.toggle("active", i === idx));
-    }
-
-    document.querySelectorAll(".demo-tab, .thumb-card").forEach(el => {
-      el.addEventListener("click", () => {
-        const idx = parseInt(el.getAttribute("data-demo"), 10);
-        selectDemo(idx);
-      });
-    });
-    document.querySelectorAll(".thumb-card").forEach(el => {
-      el.setAttribute("tabindex", "0");
-      el.setAttribute("role", "button");
-      el.addEventListener("keydown", (e) => {
-        if (e.key === "Enter" || e.key === " ") {
-          e.preventDefault();
-          selectDemo(parseInt(el.getAttribute("data-demo"), 10));
-        }
-      });
-    });
-
-    const navLinks = document.getElementById("navLinks");
-    const navToggle = document.getElementById("navToggle");
-    function setMenu(open) {
-      navLinks.classList.toggle("open", open);
-      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
-      navToggle.setAttribute("aria-label", open ? "Fermer le menu" : "Ouvrir le menu");
-    }
-    navToggle.addEventListener("click", () => setMenu(!navLinks.classList.contains("open")));
-    navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setMenu(false)));
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
-  </script><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
@@ -908,65 +818,56 @@
     </div>
   </footer>
 
-  <script>
+    <script>
     const DEMOS = [
-      {
-        img: "assets/demos/demo_tva_01.png",
-        title: "TVA-01 — Préparation CA3 mensuelle Octobre 2026 (DOS-01)",
-        desc: "TVA collectée 10 500,00 € · TVA déductible 7 970,00 € · Solde à payer 2 530,00 € · Autoliquidation UE symétrique et livraisons exonérées vérifiées (7/7 contrôles).",
-        badge: "DECL-PROP-001"
-      },
-      {
-        img: "assets/demos/demo_rap_01.png",
-        title: "RAP-01 — Rapprochement relevé 60 lignes vs journal 512 (DOS-01)",
-        desc: "54 lignes lettrées automatiquement · Écart brut 2 160,80 € démontré · Virement inconnu X991 (+1 250 €), doublon Telecom (−240 €) et écart Rive Gauche (50 €) isolés.",
-        badge: "RAP-512-OCT26"
-      },
-      {
-        img: "assets/demos/demo_sai_02.png",
-        title: "SAI-02 — Facture UE autoliquidée Meta Ireland (DOS-02)",
-        desc: "Facture IE-META-2026-771 de 800,00 € HT · Autoliquidation art. 283-2 CGI à 20 % (160,00 €) · Écriture équilibrée 6231 / 445662 / 401META / 445200 à 960,00 €.",
-        badge: "EC-PROP-001"
-      },
-      {
-        img: "assets/demos/demo_let_02.png",
-        title: "LET-02 — Lettrage 401 fournisseurs & double règlement (DOS-02)",
-        desc: "ALPHA IT soldé (avoir 600 € + virement 3 000 €) · Double paiement TELECOM (240 €) bloqué et reclassé en OD 409100/401011 · Reste dû CABINET JUR 1 200 €.",
-        badge: "EC-PROP-001"
-      },
-      {
-        img: "assets/demos/demo_lia_01.png",
-        title: "LIA-01 — Passage résultat fiscal & calcul IS 15 % / 25 % (DOS-02)",
-        desc: "Résultat comptable 64 200 € + réintégrations 2 800 € − déficit 5 000 € = 62 000 € · IS 15 % (6 375 €) + 25 % (4 875 €) = 11 250 € · Solde à payer 3 050 €.",
-        badge: "DECL-PROP-001"
-      },
-      {
-        img: "assets/demos/demo_aud_02.png",
-        title: "AUD-02 — Revue confidentielle LCB-FT réservée à l'Expert-Comptable (DOS-03)",
-        desc: "Dépôt espèces 9 800 € sans tickets Z et virement 24 500 € sans justificatif isolés en alerte confidentielle ESC-001 · Zéro écriture générée · Règle anti-divulgation respectée.",
-        badge: "ESC-001"
-      }
+      { src: "assets/demos/demo_tva_01.webp", title: "TVA-01 — Préparation CA3 mensuelle Octobre 2026 (DOS-01)", desc: "TVA collectée 10 500,00 € · TVA déductible 7 970,00 € · Solde à payer 2 530,00 € · Autoliquidation UE symétrique et livraisons exonérées vérifiées (7/7 contrôles).", badge: "DECL-PROP-001", alt: "Capture de la console EXIOR — déclaration CA3 d'octobre 2026, dossier de démonstration" },
+      { src: "assets/demos/demo_rap_01.webp", title: "RAP-01 — Rapprochement relevé 60 lignes vs journal 512 (DOS-01)", desc: "54 lignes lettrées automatiquement · Écart brut 2 160,80 € démontré · Virement inconnu X991 (+1 250 €), doublon Telecom (−240 €) et écart Rive Gauche (50 €) isolés.", badge: "RAP-512-OCT26", alt: "Capture de la console EXIOR — rapprochement bancaire de 60 lignes, dossier de démonstration" },
+      { src: "assets/demos/demo_sai_02.webp", title: "SAI-02 — Facture UE autoliquidée Meta Ireland (DOS-02)", desc: "Facture IE-META-2026-771 de 800,00 € HT · Autoliquidation art. 283-2 CGI à 20 % (160,00 €) · Écriture équilibrée 6231 / 445662 / 401META / 445200 à 960,00 €.", badge: "EC-PROP-001", alt: "Capture de la console EXIOR — saisie d'une facture UE autoliquidée, dossier de démonstration" },
+      { src: "assets/demos/demo_let_02.webp", title: "LET-02 — Lettrage 401 fournisseurs & double règlement (DOS-02)", desc: "ALPHA IT soldé (avoir 600 € + virement 3 000 €) · Double paiement TELECOM (240 €) bloqué et reclassé en OD 409100/401011 · Reste dû CABINET JUR 1 200 €.", badge: "EC-PROP-001", alt: "Capture de la console EXIOR — lettrage fournisseurs et double règlement, dossier de démonstration" },
+      { src: "assets/demos/demo_lia_01.webp", title: "LIA-01 — Passage résultat fiscal & calcul IS 15 % / 25 % (DOS-02)", desc: "Résultat comptable 64 200 € + réintégrations 2 800 € − déficit 5 000 € = 62 000 € · IS 15 % (6 375 €) + 25 % (4 875 €) = 11 250 € · Solde à payer 3 050 €.", badge: "DECL-PROP-001", alt: "Capture de la console EXIOR — calcul de l'impôt sur les sociétés, dossier de démonstration" },
+      { src: "assets/demos/demo_aud_02.webp", title: "AUD-02 — Revue confidentielle LCB-FT réservée à l'Expert-Comptable (DOS-03)", desc: "Dépôt espèces 9 800 € sans tickets Z et virement 24 500 € sans justificatif isolés en alerte confidentielle ESC-001 · Zéro écriture générée · Règle anti-divulgation respectée.", badge: "ESC-001", alt: "Capture de la console EXIOR — revue confidentielle LCB-FT, dossier de démonstration" }
     ];
 
     function selectDemo(idx) {
       const d = DEMOS[idx];
       if (!d) return;
-      document.getElementById("stageImg").src = d.img;
-      document.getElementById("stageImg").alt = d.title;
+      const img = document.getElementById("stageImg");
+      img.src = d.src;
+      img.alt = d.alt;
       document.getElementById("stageTitle").textContent = d.title;
       document.getElementById("stageDesc").textContent = d.desc;
       document.getElementById("stageBadge").textContent = d.badge;
-
-      document.querySelectorAll(".demo-tab").forEach((el, i) => el.classList.toggle("active", i === idx));
+      document.querySelectorAll(".demo-tab").forEach((el, i) => {
+        el.classList.toggle("active", i === idx);
+        el.setAttribute("aria-selected", i === idx ? "true" : "false");
+      });
       document.querySelectorAll(".thumb-card").forEach((el, i) => el.classList.toggle("active", i === idx));
     }
 
     document.querySelectorAll(".demo-tab, .thumb-card").forEach(el => {
-      el.addEventListener("click", () => {
-        const idx = parseInt(el.getAttribute("data-demo"), 10);
-        selectDemo(idx);
+      el.addEventListener("click", () => selectDemo(parseInt(el.getAttribute("data-demo"), 10)));
+    });
+    document.querySelectorAll(".thumb-card").forEach(el => {
+      el.setAttribute("tabindex", "0");
+      el.setAttribute("role", "button");
+      el.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          selectDemo(parseInt(el.getAttribute("data-demo"), 10));
+        }
       });
     });
+
+    const navLinks = document.getElementById("navLinks");
+    const navToggle = document.getElementById("navToggle");
+    function setMenu(open) {
+      navLinks.classList.toggle("open", open);
+      navToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      navToggle.setAttribute("aria-label", open ? "Fermer le menu" : "Ouvrir le menu");
+    }
+    navToggle.addEventListener("click", () => setMenu(!navLinks.classList.contains("open")));
+    navLinks.querySelectorAll("a").forEach(a => a.addEventListener("click", () => setMenu(false)));
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") setMenu(false); });
   </script>
 </body>
 </html>
